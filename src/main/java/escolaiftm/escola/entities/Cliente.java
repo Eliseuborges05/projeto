@@ -22,33 +22,33 @@ public class Cliente implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "cliente_name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "cliente_cpf", nullable = false, length = 11, unique = true)
+    @Column(name = "cpf", nullable = false, length = 14, unique = true)
     private String cpf;
 
-    @Column(nullable = true, unique = false)
+    @Column(name = "income",nullable = true, unique = false)
     private Double income;
 
-    @Column(nullable = true, unique = false)
+    @Column(name = "birth_Date",nullable = true, unique = false)
     private Instant birthDate;
 
-    @Column(nullable = true, unique = false)
-    private Instant childrem;
+    @Column(name = "children",nullable = true, unique = false)
+    private int children;
 
 
     //Construtores
     public Cliente() {
     }
 
-    public Cliente(long id, String name, String cpf, Double income, Instant birthDate, Instant childrem) {
+    public Cliente(long id, String name, String cpf, Double income, Instant birthDate, Integer childrem) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.income = income;
         this.birthDate = birthDate;
-        this.childrem = childrem;
+        this.children = childrem;
     }
 
     public long getId() {
@@ -91,12 +91,12 @@ public class Cliente implements Serializable{
         this.birthDate = birthDate;
     }
 
-    public Instant getChildrem() {
-        return childrem;
+    public Integer getChildren() {
+        return children;
     }
 
-    public void setChildrem(Instant childrem) {
-        this.childrem = childrem;
+    public void setChildrem(Integer childrem) {
+        this.children = childrem;
     }
 
 
