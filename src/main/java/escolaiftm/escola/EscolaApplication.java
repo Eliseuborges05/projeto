@@ -1,6 +1,7 @@
 package escolaiftm.escola;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class EscolaApplication implements CommandLineRunner {
 		SpringApplication.run(EscolaApplication.class, args);
 		
 	}
-
+	int i = 0;
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -73,7 +74,13 @@ public class EscolaApplication implements CommandLineRunner {
 		Matricula matricula2 = new Matricula(null,Instant.parse("2024-02-05T04:30:00z"),Instant.parse("2024-12-10T04:30:00z"));
 		repositorioMatricula.save(matricula2);
 
-
+		repositorio.findByChildren(2);
+		ArrayList<Cliente> listaClientes = repositorio.findByChildren(2); 
+		System.out.println(listaClientes.size());//Quantidade de clientes com dois filhos
+		System.out.println("--------Relatório----------");
+		for(i =0; i< listaClientes.size(); i++){
+			System.out.println(listaClientes.get(i).getName());
+		}
 	}
 
 }

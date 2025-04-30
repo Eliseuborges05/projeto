@@ -14,7 +14,7 @@ INSERT INTO tb_cliente (name, cpf, income, birth_date, children) VALUES
 ('João Silva', '123.456.789-0', 2500.00, '1985-05-15 00:00:00', 2),
 ('Juliana Castro', '951.753.852-9', 4300.25, '1991-02-28 00:00:00', 2);
 
-INSERT INTO tb_matricula (inicio_matricula, fim_matricula) VALUES
+INSERT INTO tb_matricula (inicio_matricula, fim_matricula ) VALUES
 ('2024-01-10T04:30:00Z', '2024-11-15T04:30:00Z'),
 ('2024-02-05T04:30:00Z', '2024-12-10T04:30:00Z'),
 ('2024-03-01T04:30:00Z', '2025-01-10T04:30:00Z'),
