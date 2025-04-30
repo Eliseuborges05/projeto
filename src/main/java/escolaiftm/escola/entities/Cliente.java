@@ -35,8 +35,7 @@ public class Cliente implements Serializable{
     private Instant birthDate;
 
     @Column(name = "children",nullable = true, unique = false)
-    private int children;
-
+    private Integer children;
 
     //Construtores
     public Cliente() {

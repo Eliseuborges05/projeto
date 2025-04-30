@@ -1,6 +1,8 @@
 package escolaiftm.escola;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class EscolaApplication implements CommandLineRunner {
 		
 	}
 	int i = 0;
+	int j = 0;
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -63,16 +66,6 @@ public class EscolaApplication implements CommandLineRunner {
 		Cliente busca = repositorio.findById(2L).get();
 		System.out.println("Busca individual:");
 		System.out.println(busca.getName());
-		
-		/////////////
-        //Manipulação da Matrícula
-		Matricula matricula = new Matricula();
-		matricula.setData_inicio(Instant.parse("2024-02-05T04:30:00z"));
-		matricula.setData_fim(Instant.parse("2024-12-10T04:30:00z"));
-		repositorioMatricula.save(matricula);
-
-		Matricula matricula2 = new Matricula(null,Instant.parse("2024-02-05T04:30:00z"),Instant.parse("2024-12-10T04:30:00z"));
-		repositorioMatricula.save(matricula2);
 
 		repositorio.findByChildren(2);
 		ArrayList<Cliente> listaClientes = repositorio.findByChildren(2); 
@@ -81,6 +74,108 @@ public class EscolaApplication implements CommandLineRunner {
 		for(i =0; i< listaClientes.size(); i++){
 			System.out.println(listaClientes.get(i).getName());
 		}
-	}
+		
+		/////////////
+        //Manipulação da Matrícula
+		Matricula matricula = new Matricula();
+		matricula.setDatainicio(Instant.parse("2024-02-05T04:30:00z"));
+		matricula.setDatafim(Instant.parse("2024-12-10T04:30:00z"));
+		matricula.setStatus("Ativo");
+		repositorioMatricula.save(matricula);
 
-}
+		Matricula matricula2 = new Matricula(null,Instant.parse("2024-02-05T04:30:00z"),Instant.parse("2024-12-10T04:30:00z"),"Inativo");
+		repositorioMatricula.save(matricula2);
+
+		List<Matricula> listamatriculas = repositorioMatricula.findAll();
+		System.out.println("----------Data final e Status----------\n");
+		for(j = 0; j < listamatriculas.size(); j++){
+			System.out.println("ID Matrícula: "+listamatriculas.get(j).getIdmatricula());
+			System.out.println("Fim matricula:");
+			System.out.println(listamatriculas.get(j).getDatafim());
+			System.out.println("Status:");
+			System.out.println(listamatriculas.get(j).getStatus());
+			System.out.println("\n");
+		}
+		
+		List<Matricula> matriculasAtivas = repositorioMatricula.findByStatusLike("Ativo");
+		System.out.println("---------- Matrículas Ativas ----------");
+		for(int a = 0; a< matriculasAtivas.size(); a++){
+			System.out.print(matriculasAtivas.get(a).getIdmatricula()+" ");
+			System.out.println(matriculasAtivas.get(a).getStatus());
+		}
+		System.out.println("Total: " + matriculasAtivas.size());
+
+		Instant inicio = Instant.parse("2024-04-01T00:00:00Z");
+        Instant fim = Instant.parse("2025-12-31T23:59:59Z");
+		List<Matricula> matriculasEncontradas = repositorioMatricula.findByDatainicioBetween(inicio, fim);
+
+		if (matriculasEncontradas == null || matriculasEncontradas.isEmpty()) {
+			System.out.println("Nenhuma matrícula encontrada entre as datas.");
+		}
+        System.out.println("\n---------- Matrículas entre datas ----------");
+        for (int c = 0; c < matriculasEncontradas.size(); c++) {
+            System.out.println("ID: " + matriculasEncontradas.get(c).getIdmatricula());
+            System.out.println("Início: " + matriculasEncontradas.get(c).getDatainicio());
+            System.out.println("Fim: " + matriculasEncontradas.get(c).getDatafim());
+            System.out.println("Status: " + matriculasEncontradas.get(c).getStatus());
+            System.out.println("----------------------------------");
+		}
+	
+        // Cria um Instant correspondente a 1º de janeiro de 2025
+		Instant inicio2025 = LocalDate.of(2025, 1, 1).atStartOfDay().toInstant(ZoneOffset.UTC);
+		Instant inicio2027 = Instant.parse("2027-01-01T12:00:00.00Z");
+		Instant termino2028 = Instant.parse("2028-12-30T12:00:00.00Z");
+        // Busca todas as matrículas onde dataFim > 2025-01-01
+        List<Matricula> matriculas = repositorioMatricula.findByDatafimAfter(inicio2025);
+
+        // Imprime quem são
+       matriculas.forEach(matricula2as -> {
+           System.out.println("Matrícula ID: " + matricula2as.getIdmatricula() +
+                              ", Data Fim: " + matricula2as.getDatafim() +
+                               ", Status: " + matricula2as.getStatus());
+        });
+
+        // Imprime a quantidade
+        System.out.println("Quantidade de matrículas com fim após 2025: " + matriculas.size());
+
+    	matriculas = repositorioMatricula.findByDatainicioGreaterThanAndDatafimLessThan(inicio2027,termino2028);
+
+        // Imprime quem são
+
+		System.out.println("---------------Relatório alunos entre 2027 até 2028-------------------\n\n");
+		for (int i = 0; i < matriculas.size(); i++) {
+			Matricula mat = matriculas.get(i);
+			System.out.println("Matrícula ID: " + mat.getIdmatricula() +
+			", Data Fim: " + mat.getDatafim() +
+			 ", Status: " + mat.getStatus());
+			
+		}
+		Instant inicio22025 = Instant.parse("2025-01-01T12:00:00.00Z");
+		Instant termino2026 = Instant.parse("2026-12-30T12:00:00.00Z");
+		matriculas = repositorioMatricula.findByDatainicioGreaterThanAndDatafimLessThanAndStatusLike(inicio22025, termino2026, "Ativo");
+		for(int i = 0; i < matriculas.size(); i++){
+			Matricula mat6 = matriculas.get(i);
+			System.out.println("\nMatricula ID: "+ mat6.getIdmatricula() +
+			"\nData Inicio: " + mat6.getDatainicio() + "\nData Fim: " + mat6.getDatafim()+
+			"\nStatus: " + mat6.getStatus());
+			System.out.println(("Matriculas encontradas" + matriculas.size()));
+		}
+		Instant inicio2028 = LocalDate.of(2028, 1, 1).atStartOfDay().toInstant(ZoneOffset.UTC);
+        Instant fim2028 = LocalDate.of(2028, 12, 31).atTime(23, 59, 59).toInstant(ZoneOffset.UTC);
+
+        List<Matricula> matriculas2028 = repositorioMatricula
+        .findByStatusAndDatainicioBetweenOrderByDatainicioAsc("Ativo", inicio2028, fim2028);
+		for (int i = 0; i < matriculas2028.size(); i++) {
+			Matricula mat6 = matriculas2028.get(i);
+			System.out.println("\nMatricula ID: " + mat6.getIdmatricula() +
+							   "\nData Início: " + mat6.getDatainicio() +
+							   "\nData Fim: " + mat6.getDatafim() +
+							   "\nStatus: " + mat6.getStatus());
+		}
+		
+		System.out.println("\nTotal de matrículas ativas iniciadas em 2028: " + matriculas2028.size());
+	}
+}	
+		
+
+

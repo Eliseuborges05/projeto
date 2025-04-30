@@ -19,45 +19,57 @@ public class Matricula implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_matricula;
+    private Long idmatricula;
 
     @Column(name = "inicio_matricula",nullable = false, unique = false)
-    private Instant data_inicio;
+    private Instant datainicio;
 
     @Column(name = "fim_matricula",nullable = true, unique = false)
-    private Instant data_fim;
+    private Instant datafim;
+
+    @Column(name = "status", nullable = false, unique = false)
+    private String status;
+
     
     public Matricula() {
     }
 
-    public Matricula(Long id_matricula, Instant data_inicio, Instant data_fim) {
-        this.id_matricula = id_matricula;
-        this.data_inicio = data_inicio;
-        this.data_fim = data_fim;
+    public Matricula(Long idmatricula, Instant datainicio, Instant datafim, String status) {
+        this.idmatricula = idmatricula;
+        this.datainicio = datainicio;
+        this.datafim = datafim;
+        this.status = status;
+
     }
 
-    public long getId_matricula() {
-        return id_matricula;
+    public Long getIdmatricula() {
+        return idmatricula;
     }
 
-    public void setId_matricula(long id_matricula) {
-        this.id_matricula = id_matricula;
+    public void setIdmatricula(Long idmatricula) {
+        this.idmatricula = idmatricula;
     }
 
-    public Instant getData_inicio() {
-        return data_inicio;
+    public Instant getDatainicio() {
+        return datainicio;
     }
 
-    public void setData_inicio(Instant data_inicio) {
-        this.data_inicio = data_inicio;
+    public void setDatainicio(Instant datainicio) {
+        this.datainicio = datainicio;
     }
 
-    public Instant getData_fim() {
-        return data_fim;
+    public Instant getDatafim() {
+        return datafim;
     }
 
-    public void setData_fim(Instant data_fim) {
-        this.data_fim = data_fim;
+    public void setDatafim(Instant datafim) {
+        this.datafim = datafim;
     }
-    
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
