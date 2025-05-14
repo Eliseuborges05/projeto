@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import escolaiftm.escola.entities.Cliente;
 import escolaiftm.escola.entities.Matricula;
+import escolaiftm.escola.entities.Address;
+import escolaiftm.escola.repositories.AddressRepository;
 import escolaiftm.escola.repositories.ClientRepository;
 //import escolaiftm.escola.repositories.MatriculaRepository;
 import escolaiftm.escola.repositories.MatriculaRepository;
@@ -29,7 +31,10 @@ public class EscolaApplication implements CommandLineRunner {
 	@Autowired
 	private ClientRepository repositorio;
 
+	@Autowired
+	private AddressRepository repositorioAddress;
 
+	
 	@Autowired
 	//private ClientService servicos;
 	private MatriculaRepository repositorioMatricula;
@@ -68,8 +73,27 @@ public class EscolaApplication implements CommandLineRunner {
 	    }
 	}
 		*/
+	//Nomes das cidades
+	List<Address> addresses = repositorioAddress.findAll();
+	System.out.println("------------Cidades-----------");
+	for(i = 0; i < addresses.size(); i++){
+		System.out.println("\nCidade: "+addresses.get(i).getCity());
+	}
+	String manaus = "Manaus";
+	List<Address> cityAddresses = repositorioAddress.findByCity(manaus);
+	System.out.println("Nome: "+ cityAddresses);
+
+	String mg = "MG";
+	List<Address> stateAddresses = repositorioAddress.findByStateLike(mg);
+	System.out.println("Cidade do estado de Minas Gerais");
+	for(i = 0; i < stateAddresses.size(); i++){
+		System.out.println("Cidade: "+stateAddresses.get(i).getState());
+		System.out.print("Cidade: "+stateAddresses.get(i).getCity());
+		System.out.print("Cidade: "+stateAddresses.get(i).getId());
+	} 
 	
 }
+    
 }
 
 		
@@ -106,6 +130,10 @@ public class EscolaApplication implements CommandLineRunner {
 			System.out.println(clientes.get(i).getName());
 		}
 
+	    */
+	    
+		/* 
+
 		// utilizando o método de busca por id, que é a chave primaria, ou seja,
 		// retorna apenas um elemento
 		// ele retorna um objeto Optional, o metodo get() retorna o Client
@@ -120,6 +148,8 @@ public class EscolaApplication implements CommandLineRunner {
 		for(i =0; i< listaClientes.size(); i++){
 			System.out.println(listaClientes.get(i).getName());
 		}
+
+
 		
 		/////////////
         //Manipulação da Matrícula

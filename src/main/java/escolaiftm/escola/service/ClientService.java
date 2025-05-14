@@ -18,13 +18,6 @@ public class ClientService {
     public Cliente insert(Cliente cliente){
         validateName(cliente.getName());
         return repositorio.save(cliente);
-        /*
-        if (client.getName().length() >=2 && client.getName().length()<=200){
-            return repositorio.save(client);
-        }else{
-            throw new IllegalArgumentException("Nome inválido!!! O nome precisa ter entre 2 e 200 caracteres.");
-        }
-        */
     }
 
     private void validateName(String nome){

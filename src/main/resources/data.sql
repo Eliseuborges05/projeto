@@ -60,6 +60,27 @@ INSERT INTO tb_address (rua, cidade, estado, cep) VALUES
 ('Rua Sete de Setembro', 'Salvador', 'BA', 40060120),
 ('Avenida Getulio Vargas', 'Manaus', 'AM', 69020010),
 ('Rua das Palmeiras', 'Florianopolis', 'SC', 88010000);
+INSERT INTO tb_address (rua, cidade, estado, cep) VALUES
+('Rua São Bento', 'Sao Paulo', 'SP', 01010000),
+('Avenida Brasil', 'Rio de Janeiro', 'RJ', 22290060),
+('Rua das Flores', 'Curitiba', 'PR', 80020030),
+('Rua do Sol', 'Recife', 'PE', 50030040),
+('Avenida Amazonas', 'Belo Horizonte', 'MG', 30180000),
+('Rua Dona Laura', 'Porto Alegre', 'RS', 90430090),
+('Rua João Pessoa', 'Natal', 'RN', 59010000),
+('Rua Chile', 'Salvador', 'BA', 40020030),
+('Avenida Djalma Batista', 'Manaus', 'AM', 69050001),
+('Rua Felipe Schmidt', 'Florianopolis', 'SC', 88010030),
+('Rua Augusta', 'Sao Paulo', 'SP', 01305000),
+('Rua Visconde de Pirajá', 'Rio de Janeiro', 'RJ', 22410001),
+('Rua Marechal Deodoro', 'Curitiba', 'PR', 80010010),
+('Avenida Conde da Boa Vista', 'Recife', 'PE', 50060000),
+('Rua da Bahia', 'Belo Horizonte', 'MG', 30160010),
+('Rua Padre Chagas', 'Porto Alegre', 'RS', 90430020),
+('Rua Seridó', 'Natal', 'RN', 59022000),
+('Rua Carlos Gomes', 'Salvador', 'BA', 40060020),
+('Rua Ramos Ferreira', 'Manaus', 'AM', 69010000),
+('Rua Almirante Alvim', 'Florianopolis', 'SC', 88015000);
 /*INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES
 ('2024-01-10T04:30:00Z', '2024-11-15T04:30:00Z', 'Inativo'),
 ('2024-02-05T04:30:00Z', '2024-12-10T04:30:00Z', 'Inativo'),

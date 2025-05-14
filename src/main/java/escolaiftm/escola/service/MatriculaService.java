@@ -2,7 +2,7 @@ package escolaiftm.escola.service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import escolaiftm.escola.entities.Matricula;
 import escolaiftm.escola.repositories.MatriculaRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class MatriculaService {
@@ -36,7 +37,7 @@ public Matricula insert(Matricula matricula) {
     return repository.save(matricula);
 }
 
-@Transactional(readOnly = true)
+@Transactional
 public List<Matricula> insertAll(List<Matricula> matriculas) {
     for (Matricula m : matriculas) {
         validarMatricula(m);
@@ -44,15 +45,18 @@ public List<Matricula> insertAll(List<Matricula> matriculas) {
     return repository.saveAll(matriculas);
 }
 
-public Matricula update(Long id, Matricula novaMatricula) {
-    Optional<Matricula> obj = repository.findById(id);
-    if (obj.isEmpty()) {
-        throw new IllegalArgumentException("Matrícula com ID " + id + " não encontrada.");
+ public Matricula update(Long id, Matricula newData) {
+        Matricula matricula = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Matrícula não encontrada com ID: " + id));
+        
+        validarMatricula(newData);
+
+        matricula.setDatainicio(newData.getDatainicio());
+        matricula.setDatafim(newData.getDatafim());
+        matricula.setStatus(newData.getStatus());
+
+        return repository.save(matricula);
     }
-    validarMatricula(novaMatricula);
-    novaMatricula.setIdmatricula(id);
-    return repository.save(novaMatricula);
-}
 
 public void delete(Long id) {
     repository.deleteById(id);

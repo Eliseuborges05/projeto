@@ -32,6 +32,19 @@ public class Address implements Serializable{
     @OneToOne(mappedBy = "address")
     private Cliente client;
 
+    public Address() {
+    }
+
+    public Address(Long id, String street, String city, String state, String zipCode, Cliente client) {
+        this.id = id;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.client = client;
+    }
+
+
     public Long getId() {
         return this.id;
     }
