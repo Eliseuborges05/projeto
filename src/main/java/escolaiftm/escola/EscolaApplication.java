@@ -10,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Service;
+
 import escolaiftm.escola.entities.Cliente;
 import escolaiftm.escola.entities.Matricula;
 import escolaiftm.escola.repositories.ClientRepository;
 //import escolaiftm.escola.repositories.MatriculaRepository;
 import escolaiftm.escola.repositories.MatriculaRepository;
+import escolaiftm.escola.service.ClientService;
+import escolaiftm.escola.service.MatriculaService;
 
 //Modifiquei a classe incluindo a implementação da interface
 //CommandLineRunner que permite inserir o codigo
@@ -27,7 +31,12 @@ public class EscolaApplication implements CommandLineRunner {
 
 
 	@Autowired
+	//private ClientService servicos;
 	private MatriculaRepository repositorioMatricula;
+	
+	@Autowired
+	private MatriculaService matriculaService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(EscolaApplication.class, args);
 		
@@ -37,8 +46,45 @@ public class EscolaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
+		Matricula m1 = new Matricula(null, Instant.parse("2024-01-01T00:00:00Z"), Instant.parse("2024-12-31T00:00:00Z"), "Ativo");
+    	Matricula m2 = new Matricula(null, Instant.parse("2023-05-01T00:00:00Z"), null, "Cancelado");
+		try {
+			matriculaService.insert(m1);
+			matriculaService.insert(m2);
+		} catch (IllegalArgumentException e) {
+			System.out.println("Erro de validação: " + e.getMessage());
+		}
+		/*Cliente cliente = new Cliente();
+		cliente.setName("Ana");
+ 		cliente.setCpf("00011122222");
+ 		cliente.setIncome(10000.00);
+ 		cliente.setChildrem(3);
+ 		cliente.setBirthDate(Instant.parse("1978-10-09T04:30:00.00Z"));
+ 		try{
+ 			servicos.insert(cliente);
+		
+	    }catch(IllegalArgumentException e){
+		   System.out.println("\n"+e.getMessage()+"\n");
+	    }
+	}
+		*/
+	
+}
+}
+
+		
+			 //try {
+				// Inserir clientes
+				//Cliente client1 = new Cliente("Alice", "12345678900", 3000.0,
+				//"1985-05-15 00:00:00",3); // dará erro por falta de definição de categoria.
+				//clienteService.insert(client1);
+				// Testar recomendação de crédito
+				//System.out.println(clienteService.recommendCredit(client1.getId()));
+ 		///}catch(IllegalArgumentException e){
+ 			//System.out.println("\n"+e.getMessage()+"\n");
+ 		//}
 		// TODO Auto-generated method stub
-		Cliente cliente = new Cliente();
+		/*Cliente cliente = new Cliente();
 		cliente.setName("Ana");
 		cliente.setCpf("15389102681");
 		cliente.setIncome(100000.00);
@@ -175,7 +221,29 @@ public class EscolaApplication implements CommandLineRunner {
 		
 		System.out.println("\nTotal de matrículas ativas iniciadas em 2028: " + matriculas2028.size());
 	}
-}	
+	@Service
+ public class ClientService {
+     //injeção de dependência
+     @Autowired
+     private ClientRepository repositorio;
+ 
+     @TransactionScopedonal
+     public Cliente insert(Cliente client){
+         validateName(client.getName());
+         return repositorio.save(client);
+         /*
+         if (client.getName().length() >=2 && client.getName().length()<=200){
+             return repositorio.save(client);
+         }else{
+             throw new IllegalArgumentException("Nome inválido!!! O nome precisa ter entre 2 e 200 caracteres.");
+         }
+         */
+     
+ 
+    
+     
+ 
+	
 		
 
 

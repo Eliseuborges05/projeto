@@ -1,4 +1,4 @@
-INSERT INTO tb_cliente (name, cpf, income, birth_date, children) VALUES
+INSERT INTO tb_cliente (name, cpf, income, birth_Date, children) VALUES
 ('João Silva', '123.456.789-01', 2500.00, '1985-05-15 00:00:00', 2),
 ('Maria Oliveira', '987.654.321-09', 3200.50, '1990-08-22 00:00:00', 1),
 ('Carlos Souza', '456.789.123-45', 1800.75, '1995-11-30 00:00:00', 0),
@@ -10,18 +10,103 @@ INSERT INTO tb_cliente (name, cpf, income, birth_date, children) VALUES
 ('Ricardo Alves', '369.147.258-36', 3500.00, '1987-06-12 00:00:00', 1),
 ('Juliana Castro', '951.753.852-96', 4300.25, '1991-02-28 00:00:00', 2);
 
-INSERT INTO tb_cliente (name, cpf, income, birth_date, children) VALUES
+INSERT INTO tb_cliente (name, cpf, income, birth_Date, children) VALUES
 ('João Silva', '123.456.789-0', 2500.00, '1985-05-15 00:00:00', 2),
 ('Juliana Castro', '951.753.852-9', 4300.25, '1991-02-28 00:00:00', 2);
 
-INSERT INTO tb_matricula (inicio_matricula, fim_matricula ) VALUES
-('2024-01-10T04:30:00Z', '2024-11-15T04:30:00Z'),
-('2024-02-05T04:30:00Z', '2024-12-10T04:30:00Z'),
-('2024-03-01T04:30:00Z', '2025-01-10T04:30:00Z'),
-('2024-01-20T04:30:00Z', '2024-10-25T04:30:00Z'),
-('2024-04-10T04:30:00Z', '2025-02-15T04:30:00Z'),
-('2024-05-15T04:30:00Z', '2025-03-20T04:30:00Z'),
-('2024-03-25T04:30:00Z', '2025-01-30T04:30:00Z'),
-('2024-02-28T04:30:00Z', '2024-12-05T04:30:00Z'),
-('2024-06-05T04:30:00Z', '2025-04-01T04:30:00Z'),
-('2024-07-10T04:30:00Z', '2025-05-10T04:30:00Z');
+
+INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES ('2024-01-10 04:30:00', '2024-11-15 04:30:00','Inativo');
+INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES ('2024-02-05 04:30:00', '2024-12-10 04:30:00','Inativo');
+INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES ('2024-03-01 04:30:00', '2025-01-10 04:30:00','Inativo');
+-- E assim por diante...
+
+INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES
+('2024-01-10 04:30:00', '2024-11-15 04:30:00', 'Inativo'),
+('2024-02-05 04:30:00', '2024-12-10 04:30:00', 'Ativo'),
+('2024-03-01 04:30:00', '2025-01-10 04:30:00', 'Ativo'),
+('2024-01-20 04:30:00', '2024-10-25 04:30:00', 'Ativo'),
+('2024-04-10 04:30:00', '2025-02-15 04:30:00', 'Inativo'),
+('2024-05-15 04:30:00', '2025-03-20 04:30:00', 'Ativo'),
+('2024-03-25 04:30:00', '2025-01-30 04:30:00', 'Inativo'),
+('2024-02-28 04:30:00', '2024-12-05 04:30:00', 'Ativo'),
+('2024-06-05 04:30:00', '2025-04-01 04:30:00', 'Inativo'),
+('2024-07-10 04:30:00', '2025-05-10 04:30:00', 'Inativo');
+INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES
+('2024-01-10 04:30:00', '2024-11-15 04:30:00', 'Inativo'),
+('2024-02-05 04:30:00', '2024-12-10 04:30:00', 'Ativo'),
+('2024-03-01 04:30:00', '2025-01-10 04:30:00', 'Inativo'),
+('2024-01-20 04:30:00', '2024-10-25 04:30:00', 'Ativo'),
+('2024-04-10 04:30:00', '2025-02-15 04:30:00', 'Ativo'),
+('2024-05-15 04:30:00', '2025-03-20 04:30:00', 'Inativo'),
+('2024-03-25 04:30:00', '2025-01-30 04:30:00', 'Inativo'),
+('2024-02-28 04:30:00', '2024-12-05 04:30:00', 'Inativo'),
+('2024-04-10 04:30:00', '2025-02-15 04:30:00', 'Ativo'),
+('2024-06-05 04:30:00', '2025-04-01 04:30:00', 'Inativo'),
+('2024-07-10 04:30:00', '2025-05-10 04:30:00', 'Ativo');
+
+
+
+INSERT INTO tb_cliente (name, cpf, income, birth_date, children) VALUES
+('João Silva', '123.456.789-02', 2500.00, '1985-05-15 00:00:00', 2),
+('Juliana Castro', '951.753.852-91', 4300.25, '1991-02-28 00:00:00', 2);
+
+INSERT INTO tb_address (rua, cidade, estado, cep) VALUES
+('Avenida Paulista', 'Sao Paulo', 'SP', 01311000),
+('Rua XV de Novembro', 'Curitiba', 'PR', 80020010),
+('Rua da Aurora', 'Recife', 'PE', 50050000),
+('Avenida Afonso Pena', 'Belo Horizonte', 'MG', 30130160),
+('Rua das Acacias', 'Porto Alegre', 'RS', 90480120),
+('Rua Barao do Rio Branco', 'Natal', 'RN', 59025100),
+('Rua Sete de Setembro', 'Salvador', 'BA', 40060120),
+('Avenida Getulio Vargas', 'Manaus', 'AM', 69020010),
+('Rua das Palmeiras', 'Florianopolis', 'SC', 88010000);
+/*INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES
+('2024-01-10T04:30:00Z', '2024-11-15T04:30:00Z', 'Inativo'),
+('2024-02-05T04:30:00Z', '2024-12-10T04:30:00Z', 'Inativo'),
+('2024-03-01T04:30:00Z', '2025-01-10T04:30:00Z', 'Ativo'),
+('2024-01-20T04:30:00Z', '2024-10-25T04:30:00Z', 'Inativo'),
+('2024-04-10T04:30:00Z', '2025-02-15T04:30:00Z', 'Ativo'),
+('2024-05-15T04:30:00Z', '2025-03-20T04:30:00Z', 'Ativo'),
+('2024-03-25T04:30:00Z', '2025-01-30T04:30:00Z', 'Ativo'),
+('2024-02-28T04:30:00Z', '2024-12-05T04:30:00Z', 'Inativo'),
+('2024-06-05T04:30:00Z', '2025-04-01T04:30:00Z', 'Ativo'),
+('2024-07-10T04:30:00Z', '2025-05-10T04:30:00Z', 'Ativo');
+
+INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES
+('2025-01-05T04:30:00Z', '2025-09-10T04:30:00Z', 'Ativo'),
+('2025-02-12T04:30:00Z', '2025-10-15T04:30:00Z', 'Inativo'),
+('2025-03-18T04:30:00Z', '2025-11-20T04:30:00Z', 'Ativo'),
+('2025-04-01T04:30:00Z', '2025-12-01T04:30:00Z', 'Inativo'),
+('2025-05-10T04:30:00Z', '2026-01-05T04:30:00Z', 'Ativo'),
+('2025-06-15T04:30:00Z', '2026-02-10T04:30:00Z', 'Inativo'),
+('2025-07-22T04:30:00Z', '2026-03-15T04:30:00Z', 'Ativo'),
+('2025-08-30T04:30:00Z', '2026-04-20T04:30:00Z', 'Inativo'),
+('2025-09-12T04:30:00Z', '2026-05-25T04:30:00Z', 'Ativo'),
+('2025-10-28T04:30:00Z', '2026-06-30T04:30:00Z', 'Inativo');
+
+-- Lote 2: Ano base 2026
+INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES
+('2026-01-03T04:30:00Z', '2026-09-07T04:30:00Z', 'Ativo'),
+('2026-02-14T04:30:00Z', '2026-10-12T04:30:00Z', 'Inativo'),
+('2026-03-25T04:30:00Z', '2026-11-17T04:30:00Z', 'Ativo'),
+('2026-04-06T04:30:00Z', '2026-12-22T04:30:00Z', 'Inativo'),
+('2026-05-17T04:30:00Z', '2027-01-27T04:30:00Z', 'Ativo'),
+('2026-06-28T04:30:00Z', '2027-02-28T04:30:00Z', 'Inativo'),
+('2026-07-09T04:30:00Z', '2027-03-15T04:30:00Z', 'Ativo'),
+('2026-08-20T04:30:00Z', '2027-04-19T04:30:00Z', 'Inativo'),
+('2026-09-30T04:30:00Z', '2027-05-24T04:30:00Z', 'Ativo'),
+('2026-10-15T04:30:00Z', '2027-06-29T04:30:00Z', 'Inativo');
+
+-- Lote 3: Ano base 2027
+INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES
+('2027-01-10T04:30:00Z', '2027-09-13T04:30:00Z', 'Ativo'),
+('2027-02-21T04:30:00Z', '2027-10-18T04:30:00Z', 'Inativo'),
+('2027-03-11T04:30:00Z', '2027-11-23T04:30:00Z', 'Ativo'),
+('2027-04-22T04:30:00Z', '2027-12-28T04:30:00Z', 'Inativo'),
+('2027-05-03T04:30:00Z', '2028-01-02T04:30:00Z', 'Ativo'),
+('2027-06-14T04:30:00Z', '2028-02-06T04:30:00Z', 'Inativo'),
+('2027-07-25T04:30:00Z', '2028-03-12T04:30:00Z', 'Ativo'),
+('2027-08-05T04:30:00Z', '2028-04-16T04:30:00Z', 'Inativo'),
+('2027-09-16T04:30:00Z', '2028-05-21T04:30:00Z', 'Ativo'),
+('2027-10-27T04:30:00Z', '2028-06-25T04:30:00Z', 'Inativo');
+*/

@@ -27,7 +27,7 @@ public class Matricula implements Serializable {
     @Column(name = "fim_matricula",nullable = true, unique = false)
     private Instant datafim;
 
-    @Column(name = "status", nullable = false, unique = false)
+    @Column(name = "status", nullable = true, unique = false)
     private String status;
 
     

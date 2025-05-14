@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 //anotação que indica ao JPA que essa classe é uma 
@@ -49,6 +50,11 @@ public class Cliente implements Serializable{
         this.birthDate = birthDate;
         this.children = childrem;
     }
+
+    // Relacionamento OneToOne com a entidade Address
+    @OneToOne
+    private Address address;
+
 
     public long getId() {
         return id;
@@ -96,6 +102,27 @@ public class Cliente implements Serializable{
 
     public void setChildrem(Integer childrem) {
         this.children = childrem;
+    }
+
+    private void validateName(String nome){
+        if (nome.length() < 2 || nome.length() > 200){
+            throw new IllegalArgumentException("Nome inválido: Deve ter entre 2 e 200 caracteres.");
+        }
+        if (Character.isDigit(nome.charAt(0))){
+            throw new IllegalArgumentException("Nome inválido: Não pode começar com número.");
+        }
+    }
+    
+    private void validateCpf(String cpf){
+        if (cpf == null || !cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")){
+            throw new IllegalArgumentException("CPF inválido: Formato esperado é XXX.XXX.XXX-XX");
+        }
+    }
+    
+    private void validateIncome(Double income){
+        if (income < 0){
+            throw new IllegalArgumentException("Renda inválida: Deve ser maior ou igual a 0.");
+        }
     }
 
 
