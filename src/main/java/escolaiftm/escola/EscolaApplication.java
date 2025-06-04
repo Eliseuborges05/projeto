@@ -5,13 +5,13 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.lang.System;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Service;
-
+import java.util.Scanner;
 import escolaiftm.escola.entities.Cliente;
 import escolaiftm.escola.entities.Matricula;
 import escolaiftm.escola.entities.Address;
@@ -33,7 +33,6 @@ public class EscolaApplication implements CommandLineRunner {
 
 	@Autowired
 	private AddressRepository repositorioAddress;
-
 	
 	@Autowired
 	//private ClientService servicos;
@@ -50,6 +49,8 @@ public class EscolaApplication implements CommandLineRunner {
 	int j = 0;
 	@Override
 	public void run(String... args) throws Exception {
+
+		Scanner scanner = new Scanner(System.in);
 		
 		Matricula m1 = new Matricula(null, Instant.parse("2024-01-01T00:00:00Z"), Instant.parse("2024-12-31T00:00:00Z"), "Ativo");
     	Matricula m2 = new Matricula(null, Instant.parse("2023-05-01T00:00:00Z"), null, "Cancelado");
@@ -91,6 +92,27 @@ public class EscolaApplication implements CommandLineRunner {
 		System.out.print("Cidade: "+stateAddresses.get(i).getCity());
 		System.out.print("Cidade: "+stateAddresses.get(i).getId());
 	} 
+
+	//Cliente cliente3 = new Cliente(1, "João Silva", "12345678900", 1500.00, Instant.parse("1990-01-01T00:00:00Z"), 1);
+    //cliente3 = repositorio.save(cliente3);
+
+        // Criar e salvar Address associado ao cliente
+    //Address address = new Address(null, "Rua das Flores", "123", "Centro", "Uberlândia", "MG",cliente);
+    //address = repositorioAddress.save(address);
+
+        // Criar e salvar Matricula associada ao cliente
+    //Matricula matricula = new Matricula(null, Instant.now(), null, "Ativa", client);
+    //repositorioMatricula.save(matricula);
+
+	
+
+	
+	Matricula matricula2 = new Matricula();
+        matricula2.setDatainicio(Instant.now());
+        matricula2.setDatafim(null); // ainda em andamento
+        matricula2.setStatus("ATIVA");
+        repositorioMatricula.save(matricula2);
+
 	
 }
     

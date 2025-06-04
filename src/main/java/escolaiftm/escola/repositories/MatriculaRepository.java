@@ -18,6 +18,4 @@ public interface MatriculaRepository extends JpaRepository<Matricula,Long>{
      List<Matricula> findByDatainicioGreaterThanAndDatafimLessThan(Instant inicio_matricula, Instant fim_matricula);
      List<Matricula> findByDatainicioGreaterThanAndDatafimLessThanAndStatusLike(Instant inicio_matricula, Instant fim_matricula,String status);
      List<Matricula> findByStatusAndDatainicioBetweenOrderByDatainicioAsc(String status, Instant inicio_matricula, Instant fim_matricula);
-
-
 }

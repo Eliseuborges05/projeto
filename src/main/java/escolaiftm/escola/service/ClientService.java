@@ -1,12 +1,17 @@
 package escolaiftm.escola.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client;
+//import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client;
 import org.springframework.stereotype.Service;
 import escolaiftm.escola.entities.Cliente;
 import escolaiftm.escola.repositories.ClientRepository;
+import java.util.Optional;
+//import com.escolaiftm.escola.entities.model.Cliente;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class ClientService {
@@ -18,6 +23,24 @@ public class ClientService {
     public Cliente insert(Cliente cliente){
         validateName(cliente.getName());
         return repositorio.save(cliente);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Cliente> findAll(){
+        return repositorio.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Cliente> findById(Long id) {
+       return repositorio.findById(id);
+    }
+    
+    public List<Cliente> findByChildrenGreaterThan(int qtdFilhos){
+        return repositorio.findByChildrenGreaterThan(qtdFilhos);
+    }
+
+    public List<Cliente> findByName(String name){
+           return repositorio.findByName(name);
     }
 
     private void validateName(String nome){

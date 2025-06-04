@@ -2,12 +2,13 @@ package escolaiftm.escola.service;
 
 import java.time.Instant;
 import java.util.List;
-//import java.util.Optional;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+//import escolaiftm.escola.entities.Cliente;
 import escolaiftm.escola.entities.Matricula;
 import escolaiftm.escola.repositories.MatriculaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -45,15 +46,15 @@ public List<Matricula> insertAll(List<Matricula> matriculas) {
     return repository.saveAll(matriculas);
 }
 
- public Matricula update(Long id, Matricula newData) {
+ public Matricula update(Long id, Matricula novamatricula) {
         Matricula matricula = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Matrícula não encontrada com ID: " + id));
         
-        validarMatricula(newData);
+        validarMatricula(novamatricula);
 
-        matricula.setDatainicio(newData.getDatainicio());
-        matricula.setDatafim(newData.getDatafim());
-        matricula.setStatus(newData.getStatus());
+        matricula.setDatainicio(novamatricula.getDatainicio());
+        matricula.setDatafim(novamatricula.getDatafim());
+        matricula.setStatus(novamatricula.getStatus());
 
         return repository.save(matricula);
     }
@@ -66,15 +67,17 @@ public void deleteAll() {
     repository.deleteAll();
 }
 
+@Transactional(readOnly = true)
 public List<Matricula> findAll() {
     return repository.findAll();
 }
 
-public Matricula findById(Long id) {
-    return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Matrícula não encontrada"));
+@Transactional(readOnly = true)
+public Optional<Matricula> findById(Long id) {
+    return repository.findById(id);
 }
 
-public List<Matricula> buscarPorStatus(String status) {
+public List<Matricula> findByStatusLike(String status) {
     return repository.findByStatusLike(status);
 }
 
@@ -93,6 +96,8 @@ public List<Matricula> buscarEntreDatasComStatus(Instant inicio, Instant fim, St
 public List<Matricula> buscarStatusEntreDatasOrdenado(Instant inicio, Instant fim, String status) {
     return repository.findByStatusAndDatainicioBetweenOrderByDatainicioAsc(status, inicio, fim);
 }
+
+
 }
 
 
