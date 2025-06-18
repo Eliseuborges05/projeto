@@ -8,15 +8,22 @@ import org.springframework.stereotype.Repository;
 import escolaiftm.escola.entities.Cliente;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Cliente,Long>{
-   public ArrayList<Cliente> findByNameAndChildren(String nome, int qtdFilhos);
- 
-     public ArrayList<Cliente> findByNameOrChildren(String nome, int qtdFilhos);
-     public ArrayList<Cliente> findByNameOrChildrenOrderByName(String nome, int qtdFilhos);
-     public ArrayList<Cliente> findByChildrenGreaterThan(int qtdFilhos);
-     public ArrayList<Cliente> findByChildrenGreaterThanEqual(int qtdFilhos);
-     public ArrayList<Cliente> findByName(String nome);
-     public ArrayList<Cliente> findByChildrenBetween(int qtdMinima, int qtdMaxia);
-     public ArrayList<Cliente> findByChildrenBetweenOrderByName(int qtdMinima, int qtdMaxia);
-     public ArrayList<Cliente> findByNameLike(String nome);
-} 
+public interface ClientRepository extends JpaRepository<Cliente, Long> {
+  public ArrayList<Cliente> findByNameAndChildrem(String nome, int qtdFilhos);
+
+  public ArrayList<Cliente> findByNameOrChildrem(String nome, int qtdFilhos);
+
+  public ArrayList<Cliente> findByNameOrChildremOrderByName(String nome, int qtdFilhos);
+
+  public ArrayList<Cliente> findByChildremGreaterThan(int qtdFilhos);
+
+  public ArrayList<Cliente> findByChildremGreaterThanEqual(int qtdFilhos);
+
+  public ArrayList<Cliente> findByName(String nome);
+
+  public ArrayList<Cliente> findByChildremBetween(int qtdMinima, int qtdMaxia);
+
+  public ArrayList<Cliente> findByChildremBetweenOrderByName(int qtdMinima, int qtdMaxia);
+
+  public ArrayList<Cliente> findByNameLike(String nome);
+}

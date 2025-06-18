@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @RestController
 @RequestMapping("/address")
-public class AddressController{
+public class AddressController {
     @Autowired
     AddressService serviceaddress;
 
@@ -29,33 +28,26 @@ public class AddressController{
         List<Address> addresses = serviceaddress.findall();
         return ResponseEntity.ok(addresses);
     }
-    
-    
-   @GetMapping("/{id}")
+
+    @GetMapping("/id/{id}")
     public ResponseEntity<Address> findByI(@PathVariable Long id) {
-    Optional<Address> addresses = serviceaddress.findById(id);
-    if (addresses.isPresent()) {
-        return ResponseEntity.ok(addresses.get());
-    } else {
-        return ResponseEntity.notFound().build();
-    }
+        Optional<Address> addresses = serviceaddress.findById(id);
+        if (addresses.isPresent()) {
+            return ResponseEntity.ok(addresses.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/State/{state}")
-    public ResponseEntity <List<Address>> findByStateLike(@PathVariable String state){
-       List<Address> addresses = serviceaddress.findByStateLike(state);
-       if(!addresses.isEmpty()){
-          return ResponseEntity.ok(addresses); 
-       }
-       else{
-          System.out.println(addresses);
-          return ResponseEntity.notFound().build();
-       }
+    public ResponseEntity<List<Address>> findByStateLike(@PathVariable String state) {
+        List<Address> addresses = serviceaddress.findByStateLike(state);
+        if (!addresses.isEmpty()) {
+            return ResponseEntity.ok(addresses);
+        } else {
+            System.out.println(addresses);
+            return ResponseEntity.notFound().build();
+        }
     }
 
-
-
-
 }
-
-

@@ -14,11 +14,11 @@ import jakarta.persistence.Table;
 //anotação que indica ao JPA que essa classe é uma 
 
 @Entity
-@Table(name="tb_cliente")
-public class Cliente implements Serializable{
+@Table(name = "tb_cliente")
+public class Cliente implements Serializable {
     private static final long serialVersionUID = 1l;
 
-    //Atributos 
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -29,16 +29,16 @@ public class Cliente implements Serializable{
     @Column(name = "cpf", nullable = false, length = 14, unique = true)
     private String cpf;
 
-    @Column(name = "income",nullable = true, unique = false)
+    @Column(name = "income", nullable = true, unique = false)
     private Double income;
 
-    @Column(name = "birth_Date",nullable = true, unique = false)
+    @Column(name = "birth_Date", nullable = true, unique = false)
     private Instant birthDate;
 
-    @Column(name = "children",nullable = true, unique = false)
-    private Integer children;
+    @Column(name = "childrem", nullable = true, unique = false)
+    private Integer childrem;
 
-    //Construtores
+    // Construtores
     public Cliente() {
     }
 
@@ -48,13 +48,12 @@ public class Cliente implements Serializable{
         this.cpf = cpf;
         this.income = income;
         this.birthDate = birthDate;
-        this.children = childrem;
+        this.childrem = childrem;
     }
 
     // Relacionamento OneToOne com a entidade Address
     @OneToOne
     private Address address;
-
 
     public long getId() {
         return id;
@@ -96,39 +95,35 @@ public class Cliente implements Serializable{
         this.birthDate = birthDate;
     }
 
-    public Integer getChildren() {
-        return children;
+    public Integer getChildrem() {
+        return childrem;
     }
 
     public void setChildrem(Integer childrem) {
-        this.children = childrem;
+        this.childrem = childrem;
     }
 
-    private void validateName(String nome){
-        if (nome.length() < 2 || nome.length() > 200){
+    private void validateName(String nome) {
+        if (nome.length() < 2 || nome.length() > 200) {
             throw new IllegalArgumentException("Nome inválido: Deve ter entre 2 e 200 caracteres.");
         }
-        if (Character.isDigit(nome.charAt(0))){
+        if (Character.isDigit(nome.charAt(0))) {
             throw new IllegalArgumentException("Nome inválido: Não pode começar com número.");
         }
     }
-    
-    private void validateCpf(String cpf){
-        if (cpf == null || !cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")){
+
+    private void validateCpf(String cpf) {
+        if (cpf == null || !cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
             throw new IllegalArgumentException("CPF inválido: Formato esperado é XXX.XXX.XXX-XX");
         }
     }
-    
-    private void validateIncome(Double income){
-        if (income < 0){
+
+    private void validateIncome(Double income) {
+        if (income < 0) {
             throw new IllegalArgumentException("Renda inválida: Deve ser maior ou igual a 0.");
         }
     }
 
-
-    //get and setters
-    
-
-
+    // get and setters
 
 }

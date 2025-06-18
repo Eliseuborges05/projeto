@@ -1,4 +1,4 @@
-INSERT INTO tb_cliente (name, cpf, income, birth_Date, children) VALUES
+INSERT INTO tb_cliente (name, cpf, income, birth_Date, childrem) VALUES
 ('João Silva', '123.456.789-01', 2500.00, '1985-05-15 00:00:00', 2),
 ('Maria Oliveira', '987.654.321-09', 3200.50, '1990-08-22 00:00:00', 1),
 ('Carlos Souza', '456.789.123-45', 1800.75, '1995-11-30 00:00:00', 0),
@@ -10,7 +10,7 @@ INSERT INTO tb_cliente (name, cpf, income, birth_Date, children) VALUES
 ('Ricardo Alves', '369.147.258-36', 3500.00, '1987-06-12 00:00:00', 1),
 ('Juliana Castro', '951.753.852-96', 4300.25, '1991-02-28 00:00:00', 2);
 
-INSERT INTO tb_cliente (name, cpf, income, birth_Date, children) VALUES
+INSERT INTO tb_cliente (name, cpf, income, birth_Date, childrem) VALUES
 ('João Silva', '123.456.789-0', 2500.00, '1985-05-15 00:00:00', 2),
 ('Juliana Castro', '951.753.852-9', 4300.25, '1991-02-28 00:00:00', 2);
 
@@ -46,7 +46,7 @@ INSERT INTO tb_matricula (inicio_matricula, fim_matricula, status) VALUES
 
 
 
-INSERT INTO tb_cliente (name, cpf, income, birth_date, children) VALUES
+INSERT INTO tb_cliente (name, cpf, income, birth_date, childrem) VALUES
 ('João Silva', '123.456.789-02', 2500.00, '1985-05-15 00:00:00', 2),
 ('Juliana Castro', '951.753.852-91', 4300.25, '1991-02-28 00:00:00', 2);
 

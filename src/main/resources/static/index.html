@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Informações do Cliente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #fffefe;
+            font-size: 12px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        #client-info #matricula-info #address-details {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+
+        }
+
+        .flex-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 100px;
+            border: #88db72;
+        }
+
+        .result-box {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 300px;
+            min-height: 100px;
+            font-size: 50px;
+        }
+
+        #client-details,
+        #matricula-details,
+        #address-details,
+        #client-address,
+        #client-category,
+        #client-relatives {
+            background-color: rgb(196, 211, 211);
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: medium;
+            margin-bottom: 5px;
+            color: blue;
+        }
+
+        #client-details,
+        #matricula-details,
+        #address-details,
+        #client-address,
+        #client-category,
+        #client-relatives {
+            margin: 5px 0;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .input-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 8px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .input-container button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #196ec8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="client-info" class="flex-container">
+        <h1>Informações do Cliente</h1>
+        <div class="input-container">
+            <label for="client-id">Digite o Id do cliente: </label>
+            <input type="number" id="client-id" placeholder="Ex.: 1" min="1">
+            <button onclick="fetchData()">Buscar</button>
+        </div>
+        <div id="client-details" class="result-box"></div>
+    </div>
+
+    <div id="matricula-section" class="flex-container">
+        <h1>Buscar Matricula</h1>
+        <div class="input-container">
+            <label for="matricula-id">Digite o n° da Matricula:</label>
+            <input type="number" id="matricula-id" placeholder="Ex.: 5 " min="1">
+            <button onclick="fetchMatricula()">Buscar</button>
+        </div>
+        <div id="matricula-details" class="result-box"> </div>
+    </div>
+
+    <div id="address-section" class="flex-container">
+        <h1>Buscar Endereço</h1>
+        <div class="input-container">
+            <label for="address-id">Digite o ID do Endereço</label>
+            <input type="number" id="address-id" placeholder="Ex:. 1">
+            <button onclick="fetchAddress()">Buscar</button>
+        </div>
+        <div id="address-details" class="result-box"></div>
+    </div>
+
+    <script>
+        async function fetchData() {
+            // criar as variáveis que representa os campos do formulários
+            const dadosCliente = document.getElementById('client-details');
+            // iremos capturar o id presente no input do html
+            const clienteId = document.getElementById('client-id').value;
+
+            //limpar os dados do cliente atual
+            dadosCliente.innerHTML = ``;
+
+            //validando se o ID informado é válido!!!
+            if (!clienteId) {
+                alert("O campo ID é obrigatório");
+                return;
+            }
+
+            // construir a URI
+            const uri = `http://localhost:8080/clientes/id/${clienteId}`;
+
+            try {
+                const response = await fetch(uri);
+
+                if (!response.ok) {
+                    throw new Error("Cliente não encontrado");
+                }
+
+                const json = await response.json();
+
+                dadosCliente.innerHTML = `
+                    <h3>${json.name}</h3>
+                    <p>CPF: ${json.cpf}</p>
+                    <p>Salário: R$ ${json.income}</p>
+                    <p>Número de filhos: ${json.childrem}</p>
+                `;
+
+            } catch (error) {
+                dadosCliente.innerHTML = `<p class="error">${error.message}</p>`;
+            }
+        }
+
+        async function fetchMatricula() {
+            const idInput = document.getElementById('matricula-id');
+            const dadosmatricula = document.getElementById('matricula-details');
+            const matriculaId = idInput.value;
+
+            dadosmatricula.innerHTML = ``;
+
+            if (!matriculaId) {
+                alert("Digite um valor válido!");
+                return;
+            }
+
+            const uri = `http://localhost:8080/matriculas/id/${matriculaId}`;
+
+            try {
+                const response = await fetch(uri);
+                if (!response.ok) throw new Error("Matrícula não encontrada");
+
+                const json = await response.json();
+
+                // Formatar datas
+                const inicio = new Date(json.datainicio).toLocaleDateString('pt-BR', {
+                    day: '2-digit', month: '2-digit', year: 'numeric'
+                });
+
+                const fim = json.datafim
+                    ? new Date(json.datafim).toLocaleDateString('pt-BR', {
+                        day: '2-digit', month: '2-digit', year: 'numeric'
+                    })
+                    : "Em andamento";
+
+                dadosmatricula.innerHTML = `
+            <h3>Matrícula nº ${json.idmatricula}</h3>
+            <p><strong>Início:</strong> ${inicio}</p>
+            <p><strong>Fim:</strong> ${fim}</p>
+            <p><strong>Status:</strong> ${json.status}</p>
+        `;
+
+            } catch (error) {
+                dadosmatricula.innerHTML = `<p class="error">${error.message}</p>`;
+            }
+        }
+
+        async function fetchAddress() {
+            const dadosAddress = document.getElementById('address-details');
+            const idAddress = document.getElementById('address-id').value;
+
+            if (!idAddress) {
+                alert("Digite um id válido!");
+                return;
+            }
+
+            dadosAddress.innerHTML = ``;
+
+            const uri = `http://localhost:8080/address/id/${idAddress}`;
+
+            try {
+                const response = await fetch(uri);
+                if (!response.ok) throw new Error("Endereço não encontrado!!");
+
+                const json = await response.json();
+
+                dadosAddress.innerHTML = `
+                    <h3>Id Endereço: ${json.id}</h3>
+                    <p>Rua: ${json.street}</p>
+                    <p>Cidade: ${json.city}</p>
+                    <p>Estado: ${json.state}</p>
+                    <p>Cep: ${json.zipCode}</p>
+                    <p>Cliente: ${json.client}</p>
+                `;
+            }
+            catch (error) {
+                dadosAddress.innerHTML = `<p class="error">${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+
+</html>
