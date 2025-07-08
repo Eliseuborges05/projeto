@@ -9,31 +9,34 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 //import jakarta.persistence.Table;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="tb_matricula")
+@Table(name = "tb_matricula")
 public class Matricula implements Serializable {
     private static final long serialVersionUID = 1l;
-@ManyToOne
-private Cliente cliente;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idmatricula;
 
-    @Column(name = "inicio_matricula",nullable = false, unique = false)
+    @Column(name = "inicio_matricula", nullable = false, unique = false)
     private Instant datainicio;
 
-    @Column(name = "fim_matricula",nullable = true, unique = false)
+    @Column(name = "fim_matricula", nullable = true, unique = false)
     private Instant datafim;
 
     @Column(name = "status", nullable = true, unique = false)
     private String status;
 
-    
+    @OneToOne
+    @JoinColumn(name = "cliente_fk", referencedColumnName = "id")
+    private Cliente cliente;
+
     public Matricula() {
     }
 
@@ -68,6 +71,7 @@ private Cliente cliente;
     public void setDatafim(Instant datafim) {
         this.datafim = datafim;
     }
+
     public String getStatus() {
         return this.status;
     }

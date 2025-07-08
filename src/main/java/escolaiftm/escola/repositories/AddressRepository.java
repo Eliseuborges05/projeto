@@ -12,5 +12,6 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
     public ArrayList<Address> findByCity(String city);
 
     public ArrayList<Address> findByStateLike(String state);
+
     // public ArrayList<Address>f
 }

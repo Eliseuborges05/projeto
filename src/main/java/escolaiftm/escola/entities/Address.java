@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_address")
-public class Address implements Serializable{
+public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,21 +30,18 @@ public class Address implements Serializable{
     private String zipCode;
 
     // Relacionamento OneToOne com a entidade Client
-    @OneToOne(mappedBy = "address")
-    private Cliente client;
 
     public Address() {
     }
 
-    public Address(Long id, String street, String city, String state, String zipCode, Cliente client) {
+    public Address(Long id, String street, String city, String state, String zipCode) {
         this.id = id;
         this.street = street;
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
-        this.client = client;
-    }
 
+    }
 
     public Long getId() {
         return this.id;
@@ -85,12 +83,4 @@ public class Address implements Serializable{
         this.zipCode = zipCode;
     }
 
-    public Cliente getClient() {
-        return this.client;
-    }
-
-    public void setClient(Cliente client) {
-        this.client = client;
-    }
-   
 }

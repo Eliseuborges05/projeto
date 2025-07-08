@@ -9,13 +9,119 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             padding: 0;
-            background-color: #fffefe;
+            background-color: #f4f4f4;
+        }
+
+        #client-info,
+        #matricula-section,
+        #address-section {
+            background-color: #0b09b6;
+            padding: 20px;
+            border-radius: 50px;
+            box-shadow: 0 0 10px rgba(11, 255, 226, 0.77);
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+
+        h1,
+        h2 {
+            color: #af0a0a;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        .input-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            max-width: 300px;
+        }
+
+        .input-container button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #173555;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .input-container button:hover {
+            background-color: #d28787;
+        }
+
+        .clear-btn {
+            background-color: #d9534f !important;
+        }
+
+        .clear-btn:hover {
+            background-color: #c9302c !important;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #173555;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e6f7ff;
+        }
+
+        .income {
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .children {
+            font-weight: bold;
+            color: #e67e22;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #8ce1ee;
             font-size: 12px;
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
 
         #client-info #matricula-info #address-details {
-            background-color: #f9f9f9;
+            background-color: #9c0d0d;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -25,7 +131,7 @@
         h1,
         h2,
         h3 {
-            color: #333;
+            color: #ffffff;
 
         }
 
@@ -57,6 +163,10 @@
             font-size: medium;
             margin-bottom: 5px;
             color: blue;
+        }
+
+        label {
+            color: #ffffff;
         }
 
         #client-details,
@@ -107,14 +217,16 @@
         .input-container button:hover {
             background-color: #0056b3;
         }
+
+        .hidden {}
     </style>
 </head>
 
 <body>
     <div id="client-info" class="flex-container">
-        <h1>Informações do Cliente</h1>
+        <h1>Informações do Aluno</h1>
         <div class="input-container">
-            <label for="client-id">Digite o Id do cliente: </label>
+            <label for="client-id">Digite o Id do Aluno: </label>
             <input type="number" id="client-id" placeholder="Ex.: 1" min="1">
             <button onclick="fetchData()">Buscar</button>
         </div>
@@ -139,6 +251,43 @@
             <button onclick="fetchAddress()">Buscar</button>
         </div>
         <div id="address-details" class="result-box"></div>
+    </div>
+
+
+    <div class="input-container">
+        <!--<label for="client-id">Digite o Id do cliente: </label> -->
+        <!--<input type="number" id="client-id" placeholder="Ex.: 1" min="1"> -->
+        <!--- botão que chama a função para buscar o cliente pelo Id -->
+        <!--<button onclick="apresentarDadosCliente()">Buscar</button> -->
+        <!--- botão que chama a função para buscar todos os clientes.-->
+        <button onclick="apresentarTodosClientes()">Mostrar Todos</button>
+        <!--- botão que chama a função para buscar todos os clientes.-->
+        <button onclick="limparTela()" class="clear-btn">Limpar Tela</button>
+    </div>
+
+    <!--- área onde será apresentado os dados de um cliente buscado pelo Id.-->
+    <div id="client-details"></div>
+
+    <!--- área no qual será montada a tabela com todos os clientes, começa oculta(css que faz isso).-->
+    <div id="all-clients" class="hidden">
+        <h2>Todos os Alunos</h2>
+        <table id="clients-table">
+            <!--- cabeçalho da tabela de cliente-->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do Aluno</th>
+                    <th>CPF</th>
+                    <!--<th>Salário</th> -->
+                    <th>Data de Nascimento</th>
+                    <!--<th>Filhos</th> -->
+                </tr>
+            </thead>
+            <tbody id="clients-table-body">
+                <!-- Os dados dos clientes serão inseridos aqui -->
+            </tbody>
+        </table>
+    </div>
     </div>
 
     <script>
@@ -171,10 +320,12 @@
 
                 dadosCliente.innerHTML = `
                     <h3>${json.name}</h3>
+                    <h3>Matrícula nº ${json.idmatricula}</h3>
+                    <p><strong>Status:</strong> ${json.status}</p>
                     <p>CPF: ${json.cpf}</p>
-                    <p>Salário: R$ ${json.income}</p>
-                    <p>Número de filhos: ${json.childrem}</p>
-                `;
+                    `;
+                //<p>Salário: R$ ${json.income}</p>
+                //<p>Número de filhos: ${json.childrem}</p>
 
             } catch (error) {
                 dadosCliente.innerHTML = `<p class="error">${error.message}</p>`;
@@ -255,6 +406,155 @@
             catch (error) {
                 dadosAddress.innerHTML = `<p class="error">${error.message}</p>`;
             }
+        }
+
+        function apresentarTodasMatriculas() {
+            const uri = "https://localhost:8080/matricula";
+
+            async function buscarTodasMatriculas() {
+                const resposta = await fetch(uri);
+            }
+
+            if (!resposta.ok) {
+                alert("Não foi possível retornar os dados da matricula!");
+                return;
+            }
+
+        }
+
+        // Função para buscar um cliente por ID
+        function apresentarDadosCliente() {
+
+            // capturando o id digitado no campo client-id
+            var idCliente = document.getElementById('client-id').value;
+
+            // se nada foi digitado, mostrar mensagem de erro.
+            if (!idCliente) {
+                alert("Por favor, digite um ID válido");
+                return;
+            }
+
+            // construir a URI
+            const uri = `http://localhost:8080/clients/id/${idCliente}`;
+
+            //função assincrona que irá criar a requisição get para o endpoint de nossa apiRest
+            async function buscarDadosCliente() {
+                //chama a APIREST em seu endpoint /id/{id} - findById
+                const resposta = await fetch(uri);
+                //caso a resposta não seja um Json, mostre essa mensagem
+                if (!resposta.ok) {
+                    alert("Não foi possível retornar os dados do cliente!!")
+                } else {
+                    //captura o Json da resposta 
+                    const json = await resposta.json();
+                    // criei uma função para apresentar os dados do cliente, para combinar com a tabela.
+                    apresentarCliente(json);
+                }
+            }
+            // Função para exibir um único cliente
+            function apresentarCliente(cliente) {
+                //captura a área dos detalhes de um cliente
+                var dadosCliente = document.getElementById('client-details');
+                //formatando data e salário
+                var dataFormatada = formatarData(cliente.birthDate);
+                var salarioFormatado = 'R$ ' + cliente.income.toFixed(2);
+
+                //criando o html para modificar a página
+                var html = '<h2>Detalhes do Aluno</h2>' +
+                    '<table>' +
+                    '<tr><th>ID</th><td>' + cliente.id + '</td></tr>' +
+                    '<tr><th>Aluno</th><td>' + cliente.name + '</td></tr>' +
+                    '<tr><th>CPF</th><td>' + cliente.cpf + '</td></tr>' +
+                    //'<tr><th>Renda</th><td class="income">' + salarioFormatado + '</td></tr>' +
+                    '<tr><th>Nascimento</th><td>' + dataFormatada + '</td></tr>' +
+                    //'<tr><th>Filhos</th><td class="children">' + cliente.children + '</td></tr>' +
+                    '</table>';
+
+                //modificando a área dos dados de um cliente com os dados do cliente buscado.
+                dadosCliente.innerHTML = html;
+            }
+            buscarDadosCliente();
+        }
+
+        // Função para buscar todos os clientes
+        function apresentarTodosClientes() {
+            // Primeiro limpa a tela
+            limparTela();
+
+            // construir a URI
+            const uri = `http://localhost:8080/clientes`;
+
+            //função assincrona que irá criar a requisição get para o endpoint de nossa apiRest
+            async function buscarTodosCliente() {
+                //chama a APIREST em seu endpoint /id/{id} - findById
+                const resposta = await fetch(uri);
+                //caso a resposta não seja um Json, mostre essa mensagem
+                if (!resposta.ok) {
+                    alert("Não foi possível retornar os dados dos clientes!!")
+                } else {
+                    //captura o Json da resposta 
+                    const json = await resposta.json();
+                    // criei uma função para apresentar os dados do cliente, para combinar com a tabela.
+                    montarTabela(json);
+                }
+            }
+            // Função para exibir todos os clientes
+            function montarTabela(clientes) {
+                // cria as variáveis relacionados a área e a tabela
+                var areaTabela = document.getElementById('all-clients');
+                var tabelaClientes = document.getElementById('clients-table-body');
+
+                // Mostra a área cliente que estava escondida
+                areaTabela.classList.remove('hidden');
+
+                // Limpa a tabela de clientes
+                tabelaClientes.innerHTML = '';
+
+                //navega por todos os clientes retornados e preenche a tabela
+                for (var i = 0; i < clientes.length; i++) {
+                    var cliente = clientes[i];
+                    var dataFormatada = formatarData(cliente.birthDate);
+                    var salarioFormatado = 'R$ ' + cliente.income.toFixed(2);
+                    //criar uma linha
+                    var linhaAtual = document.createElement('tr');
+                    //preencher os campos da linha
+                    linhaAtual.innerHTML =
+                        '<td>' + cliente.id + '</td>' +
+                        '<td>' + cliente.name + '</td>' +
+                        '<td>' + cliente.cpf + '</td>' +
+                        //'<td class="income">' + salarioFormatado + '</td>' +
+                        '<td>' + dataFormatada + '</td>' +
+                        //'<td class="children">' + cliente.childrem + '</td>';
+                        //inserir a linha na tabela
+                        tabelaClientes.appendChild(linhaAtual);
+                }
+            }
+            buscarTodosCliente();
+
+        }
+
+        // Função para limpar a tela
+        function limparTela() {
+            document.getElementById('client-details').innerHTML = '';
+            document.getElementById('clients-table-body').innerHTML = '';
+            document.getElementById('all-clients').classList.add('hidden');
+            document.getElementById('client-id').value = '';
+            document.getElementById('matricula-details').innerHTML = ''
+            document.getElementById('address-details').innerHTML = ''
+        }
+
+        // Função para formatar data
+        function formatarData(dataOriginal) {
+            var data = new Date(dataOriginal);
+            var dia = data.getDate();
+            var mes = data.getMonth() + 1; // Mês começa em 0
+            var ano = data.getFullYear();
+
+            // Adiciona zero à esquerda se necessário
+            if (dia < 10) dia = '0' + dia;
+            if (mes < 10) mes = '0' + mes;
+
+            return dia + '/' + mes + '/' + ano;
         }
     </script>
 </body>

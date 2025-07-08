@@ -2,14 +2,23 @@ package escolaiftm.escola.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale.Category;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import escolaiftm.escola.entities.Address;
+import escolaiftm.escola.entities.Categoria;
 
 //anotação que indica ao JPA que essa classe é uma 
 
@@ -38,22 +47,35 @@ public class Cliente implements Serializable {
     @Column(name = "childrem", nullable = true, unique = false)
     private Integer childrem;
 
+    @OneToOne
+    @JoinColumn(name = "address_fk", referencedColumnName = "id")
+    private Address address;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", referencedColumnName = "id")
+    private Categoria categoria;
+
+    @ManyToMany
+    @JoinTable(name = "tb_cliente_curso", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
+    private List<Curso> cursos = new ArrayList<>();
+
     // Construtores
     public Cliente() {
     }
 
-    public Cliente(long id, String name, String cpf, Double income, Instant birthDate, Integer childrem) {
+    public Cliente(long id, String name, String cpf, Double income, Instant birthDate, Integer childrem,
+            Address address, Categoria categoria) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.income = income;
         this.birthDate = birthDate;
         this.childrem = childrem;
+        this.address = address;
+        this.categoria = categoria;
     }
 
     // Relacionamento OneToOne com a entidade Address
-    @OneToOne
-    private Address address;
 
     public long getId() {
         return id;
@@ -103,6 +125,14 @@ public class Cliente implements Serializable {
         this.childrem = childrem;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     private void validateName(String nome) {
         if (nome.length() < 2 || nome.length() > 200) {
             throw new IllegalArgumentException("Nome inválido: Deve ter entre 2 e 200 caracteres.");
@@ -124,6 +154,13 @@ public class Cliente implements Serializable {
         }
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
     // get and setters
 
 }
